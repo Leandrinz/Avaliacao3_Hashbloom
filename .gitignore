@@ -1,0 +1,7 @@
+# Projeto
+bin/
+output/
+
+# Editores
+.vscode/
+.zed/
