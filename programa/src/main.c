@@ -3,10 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-TabelaHash tabela;
-
 int main() {
+    TabelaHash tabela = {};
     InicializarTabela(&tabela);
+
     system("clear");
     puts("Bem-vindo ao Hashbloom!");
 

@@ -1,6 +1,7 @@
 # Projeto
 bin/
 output/
+build/
 
 # Editores
 .vscode/

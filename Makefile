@@ -1,7 +1,7 @@
 EXEC := bin/hashbloom
 ARGS :=
 
-CODIGOS := $(shell find . -name "*.c")
+CODIGOS := $(shell find ./programa/src/ -name "*.c")
 FLAGS :=
 
 
