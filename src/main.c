@@ -1,8 +1,12 @@
 #include "auxiliares.h"
+#include "hash.h"
 #include <stdio.h>
 #include <stdlib.h>
 
+TabelaHash tabela;
+
 int main() {
+    InicializarTabela(&tabela);
     system("clear");
     puts("Bem-vindo ao Hashbloom!");
 
