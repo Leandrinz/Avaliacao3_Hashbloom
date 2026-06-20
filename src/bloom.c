@@ -25,7 +25,7 @@ void liberar_filtro(Bloom *filtro) {
 }
 
 /*
- * Insere um novo nome dentro do filtro.
+ * Insere um novo usuário dentro do filtro.
  */
 void inserir_filtro(Bloom *filtro, Usuario *usuario) {
     unsigned int bit_global = HashDivi(usuario->nome_int);
@@ -37,7 +37,7 @@ void inserir_filtro(Bloom *filtro, Usuario *usuario) {
 }
 
 /*
- * Verifica se um nome está dentro do filtro.
+ * Verifica se um usuário está dentro do filtro.
  */
 bool consultar_filtro(Bloom *filtro, Usuario *usuario) {
     unsigned int bit_global = HashDivi(usuario->nome_int);
