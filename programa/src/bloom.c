@@ -30,7 +30,7 @@ void liberar_filtro(Bloom *filtro) {
  */
 void inserir_filtro(Bloom *filtro, Usuario *usuario) {
     for (int i = 0; i < QUANT_HASHERS; i++) {
-        unsigned int bit_global = filtro->hashers[i](usuario->nome_int);
+        int bit_global = filtro->hashers[i](usuario->nome_int);
 
         int byte = bit_global / 8;
         int deslocamento = bit_global % 8;
@@ -47,7 +47,7 @@ void inserir_filtro(Bloom *filtro, Usuario *usuario) {
  */
 bool consultar_filtro(Bloom *filtro, Usuario *usuario) {
     for (int i = 0; i < QUANT_HASHERS; i++) {
-        unsigned int bit_global = filtro->hashers[i](usuario->nome_int);
+        int bit_global = filtro->hashers[i](usuario->nome_int);
 
         int byte = bit_global / 8;
         int deslocamento = bit_global % 8;

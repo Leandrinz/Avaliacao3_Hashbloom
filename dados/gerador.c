@@ -2,14 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+
 /*
     Codigo utilizado para gerar os arquivos de teste, compile de maneira idependente
-    OBS: Para gerar arquivos de tamanho diferente apenas altere o n
 */
-#define n 100000
-char lista[n][12];
-
-int gerar() {
+void gerar(int n, char lista[][12]) {
     /*
         Funçao para inserir de maneira aleatoria elementos dentro da lista
         de tamanho n. Todos os textos tem tamanho fixo de 8 char 3 int
@@ -29,13 +26,29 @@ int gerar() {
     }
 }
 
-int main() {
+int main(int argc, char *argv[]) {
+    // Tratamento de ausência de argumentos.
+    if (argc <= 1) {
+        fprintf(
+            stderr, "Insira o tamanho desejado como argumento do programa.\n"
+        );
+        exit(1);
+    }
+
+    // Tratamento de argumento inválido.
+    int n = atoi(argv[1]);
+    if (n <= 0) {
+        fprintf(stderr, "Insira um número inteiro positivo.\n");
+        exit(1);
+    }
+    char lista[n][12];
+
     //Definindo uma semente aleatoria para o rand
     srand(time(NULL));
-    gerar();
+    gerar(n, lista);
     //Gravando o arquivo. OBS: Ao alterar o n se altera o nome do arquivo
     char nome [50];
-    sprintf(nome, "./arquivos/lista%d.txt", n);
+    sprintf(nome, "./dados/arquivos/lista%d.txt", n);
     FILE *file = fopen(nome, "w");
     for(int i = 0; i < n; i++){
         fprintf(file, "%s\n", lista[i]);
