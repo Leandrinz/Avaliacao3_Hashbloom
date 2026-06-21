@@ -2,10 +2,16 @@
 #include "hash.h"
 
 /*
+ * A quantidade de funções de hash que o engenheiro Victor fez.
+ */
+#define QUANT_HASHERS 2
+
+/*
  * Representa uma instância de um filtro de bloom.
  */
 typedef struct {
     int tamanho;
+    int (*hashers[QUANT_HASHERS])(int);
     unsigned char *bytes;
 } Bloom;
 

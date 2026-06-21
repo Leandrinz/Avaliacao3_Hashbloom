@@ -10,6 +10,7 @@ Bloom *iniciar_filtro(int tamanho) {
 
     *saida = (Bloom){
         .tamanho = tamanho,
+        .hashers = {HashDivi, HashPrimoOp},
         .bytes = calloc((tamanho / 8) + 1, sizeof(unsigned char)),
     };
 
@@ -28,22 +29,33 @@ void liberar_filtro(Bloom *filtro) {
  * Insere um novo usuário dentro do filtro.
  */
 void inserir_filtro(Bloom *filtro, Usuario *usuario) {
-    unsigned int bit_global = HashDivi(usuario->nome_int);
+    for (int i = 0; i < QUANT_HASHERS; i++) {
+        unsigned int bit_global = filtro->hashers[i](usuario->nome_int);
 
-    int byte = bit_global / 8;
-    int deslocamento = bit_global % 8;
+        int byte = bit_global / 8;
+        int deslocamento = bit_global % 8;
 
-    filtro->bytes[byte] |= 1 << deslocamento;
+        filtro->bytes[byte] |= 1 << deslocamento;
+    }
 }
 
 /*
  * Verifica se um usuário está dentro do filtro.
+ *
+ * Se 'true', pode ser que esteja.
+ * Se 'false', certamente não está.
  */
 bool consultar_filtro(Bloom *filtro, Usuario *usuario) {
-    unsigned int bit_global = HashDivi(usuario->nome_int);
+    for (int i = 0; i < QUANT_HASHERS; i++) {
+        unsigned int bit_global = filtro->hashers[i](usuario->nome_int);
 
-    int byte = bit_global / 8;
-    int deslocamento = bit_global % 8;
+        int byte = bit_global / 8;
+        int deslocamento = bit_global % 8;
 
-    return (filtro->bytes[byte] & 1 << deslocamento) != 0;
+        if ((filtro->bytes[byte] & 1 << deslocamento) == 0) {
+            return false;
+        };
+    }
+
+    return true;
 }
