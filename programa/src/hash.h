@@ -7,13 +7,13 @@ typedef struct {
 } Usuario;
 
 typedef struct {
-    Usuario tabela [1000003];
+    Usuario *tabela;
 } TabelaHash;
 
 /*
     nomeToInt e uma funçao usada para facilitar operaçoes de hash
 */
-void InicializarTabela(TabelaHash*);
+void inicializarTabela(TabelaHash*);
 void nomeToInt(Usuario *user);
 int HashDivi(int);
 int HashPrimoOp(int);

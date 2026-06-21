@@ -4,9 +4,8 @@
 #include <stdlib.h>
 
 int main() {
-    TabelaHash tabela = {};
-    InicializarTabela(&tabela);
-
+    TabelaHash tabela;
+    inicializarTabela(&tabela);
     system("clear");
     puts("Bem-vindo ao Hashbloom!");
 
@@ -27,26 +26,27 @@ int main() {
         switch (escolha) {
         case 1:
             // Inserção
-            congelar();
+            //congelar();
             break;
 
         case 2:
             // Consulta
-            congelar();
+            //congelar();
             break;
 
         case 3:
             // Estatísticas
-            congelar();
+            //congelar();
             break;
 
         case 4:
             // Lote
-            congelar();
+            //congelar();
             break;
 
         default:
             // Desconhecido
+            free(tabela.tabela);
             exit(0);
         }
     }

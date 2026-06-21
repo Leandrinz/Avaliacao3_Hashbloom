@@ -1,5 +1,6 @@
 #include "hash.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /*
@@ -15,7 +16,8 @@ void nomeToInt(Usuario *user) {
 }
 
 //Necessaria para garantir a segurança
-void InicializarTabela(TabelaHash *tab) {
+void inicializarTabela(TabelaHash *tab) {
+    tab->tabela = malloc(1000003*sizeof(Usuario));
     for(int i = 0; i < 1000003; i++) {
         tab->tabela[i].nome[0] = '\0';
         tab->tabela[i].nome_int = 0;
