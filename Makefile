@@ -1,25 +1,34 @@
-EXEC := bin/hashbloom
-ARGS :=
+HBLOOM := ./bin/hashbloom
+GERADOR := ./bin/gerador
 
-CODIGOS := $(shell find ./programa/src/ -name "*.c")
+SRC_HBLOOM := $(shell find ./programa/src/ -name "*.c")
+SRC_GERADOR := $(shell find ./dados/ -name "*.c")
+
+ARGS :=
 FLAGS :=
 
 
 # Roda casualmente o programa
 normal: compilar
-	@./$(EXEC) $(ARGS)
+	@./$(HBLOOM) $(ARGS)
+
+
+# Roda casualmente o gerador
+gerador: compilar
+	@./$(GERADOR) $(ARGS)
 
 
 # Chama o GDB para fazer debug
 debug d: FLAGS += -g
 debug d: compilar
-	gdb $(EXEC) -q
+	gdb $(HBLOOM) -q
 
 
-# Apenas compila o binário
+# Apenas compila os binários
 compilar:
 	@mkdir -p bin
-	gcc $(FLAGS) $(CODIGOS) -o $(EXEC)
+	@gcc $(FLAGS) $(SRC_HBLOOM) -o $(HBLOOM)
+	@gcc $(FLAGS) $(SRC_GERADOR) -o $(GERADOR)
 
 
-.PHONY: normal debug d compilar
+.PHONY: normal gerador debug d compilar
