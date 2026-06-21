@@ -11,6 +11,11 @@ typedef struct {
 } TabelaHash;
 
 /*
+ * A quantidade máxima de usuários na tabela.
+ */
+#define QUANT_ITENS 1000003
+
+/*
     nomeToInt e uma funçao usada para facilitar operaçoes de hash
 */
 void inicializarTabela(TabelaHash*);

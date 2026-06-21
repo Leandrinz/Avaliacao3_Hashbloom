@@ -5,3 +5,4 @@ ColumnLimit: 80
 AlignAfterOpenBracket: BlockIndent
 BinPackArguments: false
 BinPackParameters: OnePerLine
+AllowShortFunctionsOnASingleLine: Empty

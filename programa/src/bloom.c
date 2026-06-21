@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 /*
- * Cria um novo filtro na memória.
+ * Cria um novo filtro de 'tamanho' bits na memória.
  */
 Bloom *iniciar_filtro(int tamanho) {
     Bloom *saida = malloc(sizeof(Bloom));

@@ -17,8 +17,8 @@ void nomeToInt(Usuario *user) {
 
 //Necessaria para garantir a segurança
 void inicializarTabela(TabelaHash *tab) {
-    tab->tabela = malloc(1000003*sizeof(Usuario));
-    for(int i = 0; i < 1000003; i++) {
+    tab->tabela = malloc(QUANT_ITENS*sizeof(Usuario));
+    for(int i = 0; i < QUANT_ITENS; i++) {
         tab->tabela[i].nome[0] = '\0';
         tab->tabela[i].nome_int = 0;
         tab->tabela[i].ocupado = 0;
@@ -27,10 +27,10 @@ void inicializarTabela(TabelaHash *tab) {
 }
 
 int HashDivi(int user) {
-    return user % 1000003;
+    return user % QUANT_ITENS;
 }
 int HashPrimoOp(int user) {
-    int temp = (5*user + 13) % 1000003;
+    int temp = (5*user + 13) % QUANT_ITENS;
     if(temp != 0) {
         return temp;
     }
@@ -38,7 +38,7 @@ int HashPrimoOp(int user) {
 }
 //DoubleHash utilizado para o tratamento de colisoes por endereçamento aberto
 int DoubleHash(int user, int i) {
-    return (HashDivi(user)+HashPrimoOp(user)*(i-1)) % 1000003;
+    return (HashDivi(user)+HashPrimoOp(user)*(i-1)) % QUANT_ITENS;
 
 }
 
@@ -70,7 +70,7 @@ void Inserir(TabelaHash* tab, Usuario user) {
                 return;
             }
             pivo++;
-            if(pivo > 1000003) {
+            if(pivo > QUANT_ITENS) {
                 lock = 0;
             }
         }
@@ -96,7 +96,7 @@ Usuario Busca(TabelaHash tab, Usuario user) {
                 return tab.tabela[endereco];
             }
             pivo++;
-            if(pivo > 1000003) {
+            if(pivo > QUANT_ITENS) {
                 lock = 0;
             }
         }

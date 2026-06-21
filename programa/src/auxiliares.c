@@ -1,17 +1,23 @@
 #include "auxiliares.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 /*
  * Congela e limpa automaticamente o terminal.
  */
 void congelar() {
     puts("");
-    puts("[Pressione Enter...]");
+    printf("[Pressione Enter...]");
 
+    getchar();
     while (getchar() != '\n')
         ;
 
-    getchar();
-    system("clear");
+    limpar();
+}
+
+/*
+ * Limpa o terminal usando ANSI.
+ */
+void limpar() {
+    printf("\033[2J\033[H\033[3J");
 }
