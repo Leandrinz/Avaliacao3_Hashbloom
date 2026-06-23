@@ -1,9 +1,10 @@
 #include "auxiliares.h"
 #include "bloom.h"
 #include "hash.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <string.h>
 
 int main() {
     TabelaHash tabela;
@@ -52,8 +53,6 @@ int main() {
                     inserir_filtro(filtro, user);
                 }
             }
-
-            congelar();
             break;
 
         case 2:
@@ -69,11 +68,9 @@ int main() {
             else{
                 puts("Usuário não encontrado");
             }
-
-            congelar();
             break;
 
-        case 3:
+        case 3: {
             puts("ESTATÍSTICAS:");
 
             /*
@@ -86,19 +83,30 @@ int main() {
             printf("    Falsos positivos: %d\n", -1);
             printf("    Taxa de falsos positivos: %.2f\n", -1.);
             printf("    Tempo médio de consulta: %d\n", -1);
-
-            congelar();
             break;
+        }
 
-        case 4:
-            puts("LOTE:");
+        case 4: {
+            printf("LOTE: ");
 
-            /*
-             * Lógica aqui
-             */
+            // Tenta abrir um arquivo de lote.
+            FILE *lote = fopen("./dados/arquivos/lote.txt", "r");
+            if (lote == NULL) {
+                puts("Não foi possível abrir o arquivo de lote.");
+                break;
+            }
 
-            congelar();
+            // Lê cada nome de um arquivo de lote e cadastra os usuários.
+            while (fscanf(lote, "%29s", nome_desejado) != EOF) {
+                Usuario *usuario_tmp = iniciarUsuario(nome_desejado);
+
+                Inserir(&tabela, *usuario_tmp);
+                inserir_filtro(filtro, usuario_tmp);
+            }
+
+            puts("O arquivo foi lido com sucesso!");
             break;
+        }
 
         default:
             liberar_filtro(filtro);
@@ -107,5 +115,7 @@ int main() {
             puts("Tchau!");
             exit(0);
         }
+
+        congelar();
     }
 }
