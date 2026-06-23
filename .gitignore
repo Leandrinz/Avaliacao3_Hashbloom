@@ -2,6 +2,7 @@
 bin/
 output/
 build/
+out/
 
 # Editores
 .vscode/
@@ -9,3 +10,4 @@ build/
 
 # Bibliotecas
 Unity/
+*.pass
