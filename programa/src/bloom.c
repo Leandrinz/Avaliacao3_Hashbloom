@@ -1,6 +1,7 @@
 #include "bloom.h"
 #include "hash.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
 /*
  * Cria um novo filtro de 'tamanho' bits na memória.

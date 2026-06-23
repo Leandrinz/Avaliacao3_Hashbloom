@@ -3,6 +3,7 @@
 #include "hash.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 int main() {
     TabelaHash tabela;
@@ -34,9 +35,23 @@ int main() {
             printf("INSERIR: ");
             scanf("%29s", nome_desejado);
 
-            /*
-             * Lógica aqui
-             */
+            // Inicia usuário
+            Usuario* user= iniciarUsuario(&nome_desejado);
+
+            if (consultar_filtro(&filtro, &user) == false){ // Caso não esteja, inserimos
+                Inserir(&tabela, *user);
+                inserir_filtro(&filtro, &user);
+            }
+            else { // Caso true, buscamos para ver se está mesmo
+                Usuario resultado = Busca(&tabela, *user);
+                if (resultado.ocupado != -1){
+                    printf("Usuário já cadastrado \n");
+                }
+                else{
+                    Inserir(&tabela, *user);
+                    inserir_filtro(&filtro, &user);
+                }
+            }
 
             congelar();
             break;
@@ -45,9 +60,15 @@ int main() {
             printf("CONSULTAR: ");
             scanf("%29s", nome_desejado);
 
-            /*
-             * Lógica aqui
-             */
+            Usuario* user= iniciarUsuario(&nome_desejado);
+
+            Usuario resultado = Busca(&tabela, *user);
+            if (resultado.ocupado != -1){
+                printf("Usuário já cadastrado \n");
+            }
+            else{
+                puts("Usuário não encontrado");
+            }
 
             congelar();
             break;
