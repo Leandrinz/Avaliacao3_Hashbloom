@@ -36,11 +36,11 @@ int main() {
             scanf("%29s", nome_desejado);
 
             // Inicia usuário
-            Usuario* user= iniciarUsuario(&nome_desejado);
+            Usuario* user= iniciarUsuario(nome_desejado);
 
-            if (consultar_filtro(&filtro, &user) == false){ // Caso não esteja, inserimos
+            if (consultar_filtro(filtro, user) == false){ // Caso não esteja, inserimos
                 Inserir(&tabela, *user);
-                inserir_filtro(&filtro, &user);
+                inserir_filtro(filtro, user);
             }
             else { // Caso true, buscamos para ver se está mesmo
                 Usuario resultado = Busca(&tabela, *user);
@@ -49,7 +49,7 @@ int main() {
                 }
                 else{
                     Inserir(&tabela, *user);
-                    inserir_filtro(&filtro, &user);
+                    inserir_filtro(filtro, user);
                 }
             }
 
@@ -60,7 +60,7 @@ int main() {
             printf("CONSULTAR: ");
             scanf("%29s", nome_desejado);
 
-            Usuario* user= iniciarUsuario(&nome_desejado);
+            user = iniciarUsuario(nome_desejado);
 
             Usuario resultado = Busca(&tabela, *user);
             if (resultado.ocupado != -1){
