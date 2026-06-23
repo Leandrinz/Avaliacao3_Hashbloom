@@ -3,6 +3,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+Usuario *iniciarUsuario(char *nome) {
+    Usuario *saida = malloc(sizeof(Usuario));
+
+    strcpy(saida->nome, nome);
+    nomeToInt(saida);
+    saida->ocupado = 0;
+
+    return saida;
+}
+
 /*
     Conversao de texto para um valor inteiro
 */
