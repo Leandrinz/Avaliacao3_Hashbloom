@@ -4,16 +4,69 @@
   :dirname: test
   :basename: test_hash.c
 :successes:
-- :test: test_nomequalquer
-  :line: 11
+- :test: test_nomeToInt
+  :line: 29
+  :message: ''
+  :unity_test_time: 0
+- :test: test_nomeToInt_vazio
+  :line: 45
+  :message: ''
+  :unity_test_time: 0
+- :test: test_inicializarTabela
+  :line: 67
+  :message: ''
+  :unity_test_time: 0
+- :test: test_hashDivi
+  :line: 97
+  :message: ''
+  :unity_test_time: 0
+- :test: test_hashPrimoOp
+  :line: 118
+  :message: ''
+  :unity_test_time: 0
+- :test: test_doubleHash
+  :line: 138
+  :message: ''
+  :unity_test_time: 0
+- :test: test_inserir
+  :line: 167
+  :message: ''
+  :unity_test_time: 0
+- :test: test_busca_inexistente
+  :line: 197
+  :message: ''
+  :unity_test_time: 0
+- :test: test_variosUsuarios
+  :line: 225
+  :message: ''
+  :unity_test_time: 0
+- :test: test_colisao
+  :line: 269
+  :message: ''
+  :unity_test_time: 0
+- :test: test_posicaoOcupada
+  :line: 310
+  :message: ''
+  :unity_test_time: 0
+- :test: test_buscaDepoisColisao
+  :line: 345
   :message: ''
   :unity_test_time: 0
 :failures: []
 :ignores: []
 :counts:
-  :total: 1
-  :passed: 1
+  :total: 12
+  :passed: 12
   :failed: 0
   :ignored: 0
-:stdout: []
-:time: 0.07214940001722425
+:stdout:
+- Usuario encontrado!
+- Usuario nao encontrado
+- ''
+- Usuario encontrado!
+- Usuario encontrado!
+- Usuario encontrado!
+- Usuario encontrado!
+- Usuario encontrado!
+- Usuario encontrado!
+:time: 1.2423252000007778

@@ -19,4 +19,4 @@ int HashDivi(int);
 int HashPrimoOp(int);
 int DoubleHash(int,int);
 void Inserir(TabelaHash*, Usuario);
-Usuario Busca(TabelaHash,Usuario);
+Usuario Busca(TabelaHash *tab,Usuario );

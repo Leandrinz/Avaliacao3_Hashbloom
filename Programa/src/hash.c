@@ -75,23 +75,23 @@ void Inserir(TabelaHash* tab, Usuario user) {
     }
 }
 //Use essa funçao para buscar na tabela, crie um usuario temporario e insira o nome dele
-Usuario Busca(TabelaHash tab, Usuario user) {
+Usuario Busca(TabelaHash *tab, Usuario user) {
     int lock = 1, pivo = 2;
     nomeToInt(&user);
     int endereco = HashDivi(user.nome_int);
-    if(tab.tabela[endereco].ocupado == 1 && strcmp(tab.tabela[endereco].nome, user.nome) == 0) {
+    if(tab->tabela[endereco].ocupado == 1 && strcmp(tab->tabela[endereco].nome, user.nome) == 0) {
         printf("Usuario encontrado!\n");
-        return tab.tabela[endereco];
+        return tab->tabela[endereco];
     }
     else {
         while(lock) {
             endereco = DoubleHash(user.nome_int, pivo);
 
-            if(tab.tabela[endereco].ocupado == 0) break;
+            if(tab->tabela[endereco].ocupado == 0) break;
 
-            if(tab.tabela[endereco].ocupado == 1 && strcmp(tab.tabela[endereco].nome, user.nome) == 0) {
+            if(tab->tabela[endereco].ocupado == 1 && strcmp(tab->tabela[endereco].nome, user.nome) == 0) {
                 printf("Usuario encontrado!\n");
-                return tab.tabela[endereco];
+                return tab->tabela[endereco];
             }
             pivo++;
             if(pivo > 1000003) {

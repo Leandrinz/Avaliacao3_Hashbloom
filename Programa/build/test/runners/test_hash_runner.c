@@ -15,7 +15,18 @@ char* GlobalOrderError;
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_nomequalquer(void);
+extern void test_nomeToInt(void);
+extern void test_nomeToInt_vazio(void);
+extern void test_inicializarTabela(void);
+extern void test_hashDivi(void);
+extern void test_hashPrimoOp(void);
+extern void test_doubleHash(void);
+extern void test_inserir(void);
+extern void test_busca_inexistente(void);
+extern void test_variosUsuarios(void);
+extern void test_colisao(void);
+extern void test_posicaoOcupada(void);
+extern void test_buscaDepoisColisao(void);
 
 
 /*=======Mock Management=====*/
@@ -87,7 +98,29 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
     {
       UnityPrint("test_hash.");
       UNITY_PRINT_EOL();
-      UnityPrint("  test_nomequalquer");
+      UnityPrint("  test_nomeToInt");
+      UNITY_PRINT_EOL();
+      UnityPrint("  test_nomeToInt_vazio");
+      UNITY_PRINT_EOL();
+      UnityPrint("  test_inicializarTabela");
+      UNITY_PRINT_EOL();
+      UnityPrint("  test_hashDivi");
+      UNITY_PRINT_EOL();
+      UnityPrint("  test_hashPrimoOp");
+      UNITY_PRINT_EOL();
+      UnityPrint("  test_doubleHash");
+      UNITY_PRINT_EOL();
+      UnityPrint("  test_inserir");
+      UNITY_PRINT_EOL();
+      UnityPrint("  test_busca_inexistente");
+      UNITY_PRINT_EOL();
+      UnityPrint("  test_variosUsuarios");
+      UNITY_PRINT_EOL();
+      UnityPrint("  test_colisao");
+      UNITY_PRINT_EOL();
+      UnityPrint("  test_posicaoOcupada");
+      UNITY_PRINT_EOL();
+      UnityPrint("  test_buscaDepoisColisao");
       UNITY_PRINT_EOL();
       return 0;
     }
@@ -95,7 +128,18 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
   }
 #endif
   UnityBegin("test_hash.c");
-  run_test(test_nomequalquer, "test_nomequalquer", 11);
+  run_test(test_nomeToInt, "test_nomeToInt", 29);
+  run_test(test_nomeToInt_vazio, "test_nomeToInt_vazio", 45);
+  run_test(test_inicializarTabela, "test_inicializarTabela", 67);
+  run_test(test_hashDivi, "test_hashDivi", 97);
+  run_test(test_hashPrimoOp, "test_hashPrimoOp", 118);
+  run_test(test_doubleHash, "test_doubleHash", 138);
+  run_test(test_inserir, "test_inserir", 167);
+  run_test(test_busca_inexistente, "test_busca_inexistente", 197);
+  run_test(test_variosUsuarios, "test_variosUsuarios", 225);
+  run_test(test_colisao, "test_colisao", 269);
+  run_test(test_posicaoOcupada, "test_posicaoOcupada", 310);
+  run_test(test_buscaDepoisColisao, "test_buscaDepoisColisao", 345);
 
   return UNITY_END();
 }
