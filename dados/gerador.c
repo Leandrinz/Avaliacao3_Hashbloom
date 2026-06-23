@@ -4,11 +4,11 @@
 #include <string.h>
 
 /*
-    Codigo utilizado para gerar os arquivos de teste, compile de maneira idependente
+    Codigo utilizado para gerar os arquivos de teste, compile de maneira independente
 */
 void gerar(int n, char lista[][12]) {
     /*
-        Funçao para inserir de maneira aleatoria elementos dentro da lista
+        Função para inserir de maneira aleatória elementos dentro da lista
         de tamanho n. Todos os textos tem tamanho fixo de 8 char 3 int
     */
     for(int i = 0; i < n; i++) {
@@ -20,7 +20,7 @@ void gerar(int n, char lista[][12]) {
             else {
                 lista[i][j] = (rand() %10)+48;
             }
-            //Adiçao do caractere final
+            //Adição do caractere final
             lista[i][11] = '\0';
         }
     }
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     }
     char lista[n][12];
 
-    //Definindo uma semente aleatoria para o rand
+    //Definindo uma semente aleatória para o rand
     srand(time(NULL));
     gerar(n, lista);
     //Gravando o arquivo. OBS: Ao alterar o n se altera o nome do arquivo
