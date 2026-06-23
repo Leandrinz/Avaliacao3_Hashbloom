@@ -17,6 +17,3 @@ void test_nomequalquer(void){
     TEST_ASSERT_EQUAL_INT(709, u.nome_int);
 }
 
-
-
-
