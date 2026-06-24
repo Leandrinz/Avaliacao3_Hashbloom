@@ -11,6 +11,7 @@ int main() {
     inicializarTabela(&tabela);
 
     Bloom *filtro = iniciar_filtro(QUANT_ITENS * 10);
+    Estatisticas estats = {};
 
     limpar();
     puts("Bem-vindo ao Hashbloom!");
@@ -42,16 +43,27 @@ int main() {
             if (consultar_filtro(filtro, user) == false){ // Caso não esteja, inserimos
                 Inserir(&tabela, *user);
                 inserir_filtro(filtro, user);
+
+                estats.consultas_evit++;
+                estats.armazenados++;
             }
             else { // Caso true, buscamos para ver se está mesmo
+                float tempo_inicial = calcular_tempo();
                 Usuario resultado = Busca(&tabela, *user);
+                estats.tempo_acc += calcular_tempo() - tempo_inicial;
+
                 if (resultado.ocupado != -1){
                     printf("Usuário já cadastrado \n");
                 }
                 else{
                     Inserir(&tabela, *user);
                     inserir_filtro(filtro, user);
+
+                    estats.falsos++;
+                    estats.armazenados++;
                 }
+
+                estats.consultas_real++;
             }
             break;
 
@@ -68,31 +80,41 @@ int main() {
             else{
                 puts("Usuário não encontrado");
             }
+            estats.consultas_real++;
             break;
 
         case 3: {
             puts("ESTATÍSTICAS:");
 
-            /*
-             * Lógica aqui
-             */
+            if (estats.consultas_real != 0) {
+                estats.falsos_tx = (float)estats.falsos / estats.consultas_real;
+                estats.tempo_medio = estats.tempo_acc / estats.consultas_real;
+            }
 
-            printf("    Elementos armazenados: %d\n", -1);
-            printf("    Consultas realizadas: %d\n", -1);
-            printf("    Consultas evitadas: %d\n", -1);
-            printf("    Falsos positivos: %d\n", -1);
-            printf("    Taxa de falsos positivos: %.2f\n", -1.);
-            printf("    Tempo médio de consulta: %d\n", -1);
+            printf("    Elementos armazenados: %d\n", estats.armazenados);
+            printf("    Consultas realizadas: %d\n", estats.consultas_real);
+            printf("    Consultas evitadas: %d\n", estats.consultas_evit);
+            printf("    Falsos positivos: %d\n", estats.falsos);
+            printf("    Taxa de falsos positivos: %.2f%%\n", estats.falsos_tx);
+            printf("    Tempo médio de consulta: %.1fms\n", estats.tempo_medio);
             break;
         }
 
         case 4: {
-            printf("LOTE: ");
+            printf("LOTE: ./dados/arquivos/");
+
+            // Coleta o nome do arquivo.
+            char arquivo[40] = "";
+            scanf("%39s", arquivo);
+
+            // Concatena com o caminho completo;
+            char diretorio[60] = "./dados/arquivos/";
+            strcat(diretorio, arquivo);
 
             // Tenta abrir um arquivo de lote.
-            FILE *lote = fopen("./dados/arquivos/lote.txt", "r");
+            FILE *lote = fopen(diretorio, "r");
             if (lote == NULL) {
-                puts("Não foi possível abrir o arquivo de lote.");
+                printf("Não foi possível abrir o arquivo '%s'.\n", arquivo);
                 break;
             }
 
@@ -102,6 +124,7 @@ int main() {
 
                 Inserir(&tabela, *usuario_tmp);
                 inserir_filtro(filtro, usuario_tmp);
+                estats.armazenados++;
             }
 
             puts("O arquivo foi lido com sucesso!");
