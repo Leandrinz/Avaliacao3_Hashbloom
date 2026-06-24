@@ -11,7 +11,7 @@ void setUp(void)
 {
     tab = malloc(sizeof(TabelaHash));
 
-    InicializarTabela(tab);
+    inicializarTabela(tab);
 }
 
 
