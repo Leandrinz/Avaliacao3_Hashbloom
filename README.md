@@ -1,4 +1,4 @@
-# Avaliacao3_Hashbloom
+# Hashbloom
 Repositório destinado ao desenvolvimento do trabalho acerca da 3º Avaliação de "Laboratório de Estrutura de Dados II"
 
 ## Integrantes
@@ -9,7 +9,9 @@ Repositório destinado ao desenvolvimento do trabalho acerca da 3º Avaliação 
 
 ## Instruções de Compilação
 
-O repositório inclui um Makefile para facilitar a compilação do programa principal e do gerador de lotes de usuários aleatórios utilizando o programa [Make](https://www.gnu.org/software/make/). É importante lembrar que o Makefile está configurado apenas para ambientes POSIX, caso você esteja em um Windows, irá precisar de uma shell que respeite esse formato para compilar.
+O repositório inclui um Makefile para facilitar a compilação do programa principal e do gerador de lotes de usuários aleatórios utilizando o programa [Make](https://www.gnu.org/software/make/).
+
+É importante lembrar que o Makefile está configurado apenas para ambientes POSIX, caso você esteja em um Windows, irá precisar de uma shell que respeite esse formato para compilar.
 
 ### Compilação Normal
 
@@ -26,6 +28,8 @@ Para compilar o gerador e gerar um arquivo de lote, é necessário utilizar a re
 ```bash
 make gerador ARGS=100
 ```
+
+Se a execução for bem-sucedida, um arquivo `listaQUANTIDADE.txt` aparecerá na pasta `./dados/arquivos/`.
 
 ### Compilação Debug
 
@@ -80,7 +84,7 @@ gem install ceedling
 #### 3º Passo: Rodar testes
 Entre dentro da pasta raiz dos testes
 
-![alt text](image.png)
+![alt text](./imagens/image.png)
 
 Rode no terminal:
 ```
@@ -89,7 +93,7 @@ ceedling test:all
 
 Resultado esperado:
 
-![alt text](image-1.png)
+![alt text](./imagens/image-1.png)
 ### Formato de Entrada
 
 
