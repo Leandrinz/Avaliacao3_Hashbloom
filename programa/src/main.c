@@ -9,10 +9,10 @@
 int main() {
     int flag1 = 0, flag2 = 0;
     int tamanho_teste = 10000;
-    
+
     TabelaHash tabela;
     int *testes_id; // Armazena apenas o nome_int de cada usuário para o teste
-    
+
     testes_id = malloc(tamanho_teste * sizeof(int));
     inicializarTabela(&tabela);
 
@@ -34,88 +34,88 @@ int main() {
         puts("    [?] - Sair");
         puts("");
 
-        printf("Escolha: ");
+        printf("ESCOLHA: ");
         scanf("%d", &escolha);
         puts("");
 
         switch (escolha) {
-        case 1:
+        case 1: {
             printf("INSERIR: ");
             scanf("%29s", nome_desejado);
 
-            Usuario *user = iniciarUsuario(nome_desejado);
+            bool usuario_existe = false;
+            Usuario *usuario_desejado = iniciarUsuario(nome_desejado);
 
-            if (consultar_filtro(filtro, user) == false) {
-                Inserir(&tabela, *user);
-                inserir_filtro(filtro, user);
-
-                estats.consultas_evit++;
-                estats.armazenados++;
-            } else {
+            // Verifica se o usuário está no filtro de bloom.
+            if (consultar_filtro(filtro, usuario_desejado)) {
                 float tempo_inicial = calcular_tempo();
-                Usuario resultado = Busca(&tabela, *user);
-                estats.tempo_acc += calcular_tempo() - tempo_inicial;
 
-                if (resultado.ocupado != -1) {
-                    printf("Usuário já cadastrado \n");
-                } else {
-                    Inserir(&tabela, *user);
-                    inserir_filtro(filtro, user);
-
-                    estats.falsos++;
-                    estats.armazenados++;
+                // Verifica se o usuário desejado existe na tabela hash.
+                if (Busca(&tabela, *usuario_desejado).ocupado != -1) {
+                    usuario_existe = true;
                 }
+
                 estats.consultas_real++;
+                estats.tempo_acc += calcular_tempo() - tempo_inicial;
+            } else {
+                estats.consultas_evit++;
             }
-            free(user);
+
+            if (usuario_existe) {
+                puts("Esse usuário já existe.");
+            } else {
+                Inserir(&tabela, *usuario_desejado);
+                inserir_filtro(filtro, usuario_desejado);
+                estats.armazenados++;
+
+                puts("Usuário cadastrado com sucesso!");
+            }
             break;
+        }
 
         case 2: {
-            int modo = 1;
             puts("Selecione uma das opções abaixo:");
-            puts("    [1] - Modo Com Bloom");
-            puts("    [2] - Modo Sem Bloom");
+            puts("    [1] - Modo com Bloom");
+            puts("    [2] - Modo sem Bloom");
+            puts("");
+
+            int modo = 0;
+            printf("ESCOLHA: ");
             scanf("%d", &modo);
+
+            // Só vendo se o modo é inválido.
+            if (modo != 1 && modo != 2) {
+                puts("Escolha inválida.");
+                break;
+            }
+
             printf("CONSULTAR: ");
             scanf("%29s", nome_desejado);
 
-            Usuario *temp = iniciarUsuario(nome_desejado);
+            bool usuario_existe = false;
+            bool pular_filtro = modo == 2;
+            Usuario *usuario_desejado = iniciarUsuario(nome_desejado);
 
-            switch (modo) {
-            case 1:
-                if (consultar_filtro(filtro, temp) == false) {
-                    puts("A pessoa buscada esta fora da tabela");
-                    estats.consultas_evit++;
-                } else {
-                    float tempo_inicial = calcular_tempo();
-                    Usuario resultado = Busca(&tabela, *temp);
-                    estats.tempo_acc += calcular_tempo() - tempo_inicial;
+            // Verifica se o usuário está no filtro de bloom.
+            // Se estiver no modo 'sem filtrar', esse check é sempre verdadeiro.
+            if (pular_filtro || consultar_filtro(filtro, usuario_desejado)) {
+                float tempo_inicial = calcular_tempo();
 
-                    if (resultado.ocupado != -1) {
-                        printf("Usuário encontrado \n");
-                    } else {
-                        puts("A pessoa buscada esta fora da tabela");
-                        estats.falsos++;
-                    }
-                    estats.consultas_real++;
+                // Verifica se o usuário desejado existe na tabela hash.
+                if (Busca(&tabela, *usuario_desejado).ocupado != -1) {
+                    usuario_existe = true;
                 }
-                free(temp);
-                break;
-            case 2:
-                {
-                    Usuario resultado = Busca(&tabela, *temp);
-                    if (resultado.ocupado != -1) {
-                        printf("Usuário já cadastrado \n");
-                    } else {
-                        puts("Usuário não encontrado");
-                    }
-                    estats.consultas_real++;
-                    free(temp);
-                }
-                break;
-            default:
-                free(temp);
-                break;
+
+                estats.consultas_real++;
+                estats.tempo_acc += calcular_tempo() - tempo_inicial;
+            } else if (!pular_filtro) {
+                estats.consultas_evit++;
+            }
+
+            if (usuario_existe) {
+                puts("Usuário encontrado.");
+            } else {
+                puts("Usuário inexistente.");
             }
             break;
         }
@@ -177,7 +177,8 @@ int main() {
             puts("ESTATÍSTICAS:");
 
             if (estats.consultas_real != 0) {
-                estats.falsos_tx = ((float)estats.falsos / estats.consultas_real) * 100.0f;
+                estats.falsos_tx =
+                    ((float)estats.falsos / estats.consultas_real) * 100.0f;
                 estats.tempo_medio = estats.tempo_acc / estats.consultas_real;
             } else {
                 estats.falsos_tx = 0.0f;
@@ -185,8 +186,13 @@ int main() {
             }
 
             printf("    Elementos armazenados: %d\n", estats.armazenados);
-            printf("    Consultas realizadas na tabela: %d\n", estats.consultas_real);
-            printf("    Consultas evitadas pelo Bloom: %d\n", estats.consultas_evit);
+            printf(
+                "    Consultas realizadas na tabela: %d\n",
+                estats.consultas_real
+            );
+            printf(
+                "    Consultas evitadas pelo bloom: %d\n", estats.consultas_evit
+            );
             printf("    Falsos positivos: %d\n", estats.falsos);
             printf("    Taxa de falsos positivos: %.2f%%\n", estats.falsos_tx);
             printf("    Tempo médio de consulta: %.4fms\n", estats.tempo_medio);
@@ -244,15 +250,18 @@ int main() {
                     printf("Não foi possível abrir o arquivo '%s'.\n", arquivo);
                     break;
                 }
-                
+
                 int i = 0;
-                while (fscanf(lote, "%29s", nome_desejado) != EOF && i < 10000) {
+                while (fscanf(lote, "%29s", nome_desejado) != EOF &&
+                       i < 10000) {
                     Usuario *usuario_tmp = iniciarUsuario(nome_desejado);
-                    testes_id[i] = usuario_tmp->nome_int; // Armazena estritamente o valor inteiro
+                    testes_id[i] =
+                        usuario_tmp
+                            ->nome_int; // Armazena estritamente o valor inteiro
                     i++;
                     free(usuario_tmp);
                 }
-                
+
                 tamanho_teste = i;
 
                 puts("O arquivo foi lido com sucesso!");
