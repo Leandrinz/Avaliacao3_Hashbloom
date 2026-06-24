@@ -200,12 +200,21 @@ int main() {
         }
 
         case 4: {
-            int modo = 1;
             puts("Selecione uma das opções abaixo:");
-            puts("    [1] - Modo Lote oficial");
-            puts("    [2] - Modo Lote teste");
+            puts("    [1] - Lote oficial");
+            puts("    [2] - Lote teste");
+            puts("");
+            
+            int modo = 0;
+            printf("ESCOLHA: ");
             scanf("%d", &modo);
-
+            
+            // Só vendo se o modo é inválido.
+            if (modo != 1 && modo != 2) {
+                puts("Escolha inválida.");
+                break;
+            }
+            
             switch (modo) {
             case 1: {
                 printf("LOTE: ./dados/arquivos/");
