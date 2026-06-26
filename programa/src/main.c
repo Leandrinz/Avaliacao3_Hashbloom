@@ -7,17 +7,18 @@
 #include <string.h>
 
 int main() {
-    int flag1 = 0, flag2 = 0;
-    int tamanho_teste = 10000;
-
+    // Hash
     TabelaHash tabela;
-    int *testes_id; // Armazena apenas o nome_int de cada usuário para o teste
-
-    testes_id = malloc(tamanho_teste * sizeof(int));
     inicializarTabela(&tabela);
 
+    // Bloom
     Bloom *filtro = iniciar_filtro(QUANT_ITENS * 10);
     Estatisticas estats = {};
+
+    // Testes
+    int *testes_id; // Armazena apenas o nome_int de cada usuário para o teste
+    int tamanho_teste = 10000;
+    testes_id = malloc(tamanho_teste * sizeof(int));
 
     limpar();
     puts("Bem-vindo ao Hashbloom!");
@@ -70,7 +71,7 @@ int main() {
 
                 puts("Usuário cadastrado com sucesso!");
             }
-            
+
             free(usuario_desejado);
             break;
         }
@@ -119,87 +120,25 @@ int main() {
             } else {
                 puts("Usuário inexistente.");
             }
-            
+
             free(usuario_desejado);
             break;
         }
 
         case 3: {
-            if (flag1 == 1 && flag2 == 1) {
-                int modo = 1;
-                puts("Selecione uma das opções abaixo:");
-                puts("    [1] - Dados com bloom");
-                puts("    [2] - Dados sem bloom");
-                scanf("%d", &modo);
-
-                estats.consultas_real = 0;
-                estats.falsos = 0;
-                estats.consultas_evit = 0;
-                estats.tempo_acc = 0;
-
-                for (int i = 0; i < tamanho_teste; i++) {
-                    // Criamos uma struct temporária limpa em pilha apenas com o ID simulado
-                    Usuario temp = { .nome_int = testes_id[i], .ocupado = 0 };
-                    
-                    switch (modo) {
-                    case 1:
-                        if (consultar_filtro(filtro, &temp) == false) {
-                            estats.consultas_evit++;
-                        } else {
-                            float tempo_inicial = calcular_tempo();
-                            Usuario resultado = Busca(&tabela, temp);
-                            estats.tempo_acc += calcular_tempo() - tempo_inicial;
-
-                            if (resultado.ocupado == -1) {
-                                estats.falsos++;
-                            }
-                            estats.consultas_real++;
-                        }
-                        break;
-                    case 2:
-                        {
-                            float tempo_inicial = calcular_tempo();
-                            Usuario resultado = Busca(&tabela, temp);
-                            estats.tempo_acc += calcular_tempo() - tempo_inicial;
-                            
-                            if (resultado.ocupado != -1) {
-                                // Encontrado
-                            }
-                            estats.consultas_real++;
-                        }
-                        break;
-                    default:
-                        break;
-                    }
-                }
-            } else if (flag1 == 1 && flag2 == 0) {
-                puts("Falta inserir o arquivo de teste para dados concretos");
-            } else if (flag2 == 1 && flag1 == 0) {
-                puts("Falta inserir o arquivo da tabela para dados concretos");
-            }
-
             puts("ESTATÍSTICAS:");
 
             if (estats.consultas_real != 0) {
-                estats.falsos_tx =
-                    ((float)estats.falsos / estats.consultas_real) * 100.0f;
+                estats.falsos_tx = (float)estats.falsos / estats.consultas_real;
                 estats.tempo_medio = estats.tempo_acc / estats.consultas_real;
-            } else {
-                estats.falsos_tx = 0.0f;
-                estats.tempo_medio = 0.0f;
             }
 
             printf("    Elementos armazenados: %d\n", estats.armazenados);
-            printf(
-                "    Consultas realizadas na tabela: %d\n",
-                estats.consultas_real
-            );
-            printf(
-                "    Consultas evitadas pelo bloom: %d\n", estats.consultas_evit
-            );
+            printf("    Consultas realizadas na tabela: %d\n", estats.consultas_real);
+            printf("    Consultas evitadas pelo bloom: %d\n", estats.consultas_evit);
             printf("    Falsos positivos: %d\n", estats.falsos);
-            printf("    Taxa de falsos positivos: %.2f%%\n", estats.falsos_tx);
-            printf("    Tempo médio de consulta: %.4fms\n", estats.tempo_medio);
+            printf("    Taxa de falsos positivos: %.2f%%\n", estats.falsos_tx * 100);
+            printf("    Tempo médio de consulta: %.1fms\n", estats.tempo_medio);
             break;
         }
 
@@ -208,17 +147,17 @@ int main() {
             puts("    [1] - Lote oficial");
             puts("    [2] - Lote teste");
             puts("");
-            
+
             int modo = 0;
             printf("ESCOLHA: ");
             scanf("%d", &modo);
-            
+
             // Só vendo se o modo é inválido.
             if (modo != 1 && modo != 2) {
                 puts("Escolha inválida.");
                 break;
             }
-            
+
             switch (modo) {
             case 1: {
                 printf("LOTE: ./dados/arquivos/");
@@ -246,7 +185,6 @@ int main() {
 
                 puts("O arquivo foi lido com sucesso!");
                 fclose(lote);
-                flag1 = 1;
                 break;
             }
             case 2: {
@@ -279,7 +217,6 @@ int main() {
 
                 puts("O arquivo foi lido com sucesso!");
                 fclose(lote);
-                flag2 = 1;
                 break;
             }
             default:
