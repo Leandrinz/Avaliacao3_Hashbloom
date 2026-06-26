@@ -70,6 +70,8 @@ int main() {
 
                 puts("Usuário cadastrado com sucesso!");
             }
+            
+            free(usuario_desejado);
             break;
         }
 
@@ -108,7 +110,7 @@ int main() {
 
                 estats.consultas_real++;
                 estats.tempo_acc += calcular_tempo() - tempo_inicial;
-            } else if (!pular_filtro) {
+            } else {
                 estats.consultas_evit++;
             }
 
@@ -117,6 +119,8 @@ int main() {
             } else {
                 puts("Usuário inexistente.");
             }
+            
+            free(usuario_desejado);
             break;
         }
 
