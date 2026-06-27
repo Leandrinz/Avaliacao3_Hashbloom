@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
     char lista[n][12];
 
     //Definindo uma semente aleatória para o rand
-    srand(time(NULL));
+    srand(8);
     gerar(n, lista);
     //Gravando o arquivo. OBS: Ao alterar o n se altera o nome do arquivo
     char nome [50];
