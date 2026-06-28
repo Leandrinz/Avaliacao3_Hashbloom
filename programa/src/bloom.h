@@ -1,5 +1,6 @@
 #pragma once
 #include "hash.h"
+#include <stdbool.h>
 
 /*
  * A quantidade de funções de hash que o engenheiro Victor fez.

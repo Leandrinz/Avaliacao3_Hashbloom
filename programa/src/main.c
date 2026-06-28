@@ -89,6 +89,7 @@ int main() {
             int modo = 0;
             printf("ESCOLHA: ");
             scanf("%d", &modo);
+            puts("");
 
             // Só vendo se o modo é inválido.
             if (modo != 1 && modo != 2) {
@@ -178,6 +179,8 @@ int main() {
                 int modo = 0;
                 printf("ESCOLHA: ");
                 scanf("%d", &modo);
+                puts("");
+
                 if (modo == 1) {
                     exibir_dados_teste = false;
                     dados_teste_bloom = (Estatisticas){0};
@@ -201,6 +204,7 @@ int main() {
             int modo = 0;
             printf("ESCOLHA: ");
             scanf("%d", &modo);
+            puts("");
 
             // Só vendo se o modo é inválido.
             if (modo != 1 && modo != 2) {
