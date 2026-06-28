@@ -1,6 +1,6 @@
 # Hashbloom
 
-Repositório destinado ao desenvolvimento do trabalho da 3ª Avaliação de "Laboratório de Estrutura de Dados II".
+Repositório destinado ao desenvolvimento do trabalho da terceira avaliação da disciplina de Laboratório de Algoritmos e Estrutura de Dados II.
 
 ## Integrantes
 
@@ -98,7 +98,7 @@ Resultado esperado:
 
 
 
-### Exemplos de Execução
+## Exemplos de Execução
 
 O programa foi projetado para ser altamente intuitivo, com poucos menus e mensagens de informativas fáceis de entender. Segue abaixo um exemplo do menu principal.
 
@@ -110,7 +110,7 @@ O programa foi projetado para ser altamente intuitivo, com poucos menus e mensag
 [?] - Sair
 ```
 
-#### Inserção Simples
+### Inserção Simples
 
 Para realizar uma inserção simples, basta navegar até a opção 1 e digitar o nome de usuário desejado. O programa informará logo em seguida se a inserção foi bem-sucedida ou não.
 
@@ -121,7 +121,7 @@ INSERIR: Guilherme
 Usuário cadastrado com sucesso!
 ```
 
-#### Consulta
+### Consulta
 
 Para realizar uma consulta é bem parecido, basta escolher a opção 2 e digitar o nome desejado. O programa perguntará se a consulta deve ser utilizada com ou sem filtro de bloom.
 
@@ -138,7 +138,7 @@ CONSULTAR: Matheus
 Usuário inexistente.
 ```
 
-#### Verificando Estatísticas
+### Verificando Estatísticas
 
 Para verificar as estatísticas da execução do programa, pasta escolher a opção 3. No exemplo abaixo, como todas as consultas a tabela hash foram barradas pelo bloom, o tempo médio de consulta está zerado.
 
@@ -154,7 +154,7 @@ ESTATÍSTICAS:
     Tempo médio de consulta: 0.0ms
 ```
 
-#### Inserção em Lote
+### Inserção em Lote
 
 Para carregar vários usuários de um arquivo `.txt`, basta utilizar a opção 4 e escolher o modo 1. Logo em seguida, basta colocar o nome do arquivo relativo a pasta `.dados/arquivos/` do projeto.
 
