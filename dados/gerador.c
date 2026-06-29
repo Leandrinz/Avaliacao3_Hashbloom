@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <string.h>
 
 /*
     Codigo utilizado para gerar os arquivos de teste, compile de maneira independente

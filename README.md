@@ -11,7 +11,9 @@ Repositório destinado ao desenvolvimento do trabalho da terceira avaliação da
 
 ## Instruções de Compilação
 
-Para realizar a compilação, é necessário utilizar o compilador [GCC](https://gcc.gnu.org/) (v14 ou mais recente), ou qualquer outro que ofereça suporte ao padrão C23. O repositório inclui um Makefile para facilitar a compilação do programa principal e do gerador de lotes de usuários aleatórios utilizando o programa [Make](https://www.gnu.org/software/make/).
+Para realizar a compilação, é necessário utilizar o compilador [GCC](https://gcc.gnu.org/) (v14 ou mais recente), ou qualquer outro que ofereça suporte ao padrão C23.
+
+O repositório inclui um Makefile para facilitar a compilação do programa principal e do gerador de lotes de usuários aleatórios utilizando o programa [Make](https://www.gnu.org/software/make/).
 
 É importante lembrar que o Makefile está configurado apenas para ambientes POSIX, caso você esteja em um Windows, irá precisar de uma shell que respeite esse formato para compilar.
 
@@ -43,7 +45,7 @@ make debug
 
 ### Compilação Manual
 
-Caso você não queria usar o Make, mas ainda tenha acesso a um ambiente POSIX, você pode passar diretamente os parâmetros ao GCC.
+Caso você não queira usar o Make, mas ainda tenha acesso a um ambiente POSIX, você pode passar diretamente os parâmetros ao GCC.
 
 ```bash
 gcc $(find ./programa/src/ -name "*.c") -o ./bin/hashbloom
